@@ -8,6 +8,10 @@
 #define MIDPOINT 2
 // Do Not Change
 
+#include "Demo123.h"
+#include "Demo4.h"
+
+#include <vector>
 
 class MassSpringSystemSimulator:public Simulator{
 public:
@@ -26,9 +30,9 @@ public:
 	void onMouse(int x, int y);
 
 	// Specific Functions
-	void setMass(float mass);
-	void setStiffness(float stiffness);
-	void setDampingFactor(float damping);
+	void setMass(float mass) { m_fMass = mass; }
+	void setStiffness(float stiffness) { m_fStiffness = stiffness; }
+	void setDampingFactor(float damping) { m_fDamping = damping; }
 	int addMassPoint(Vec3 position, Vec3 Velocity, bool isFixed);
 	void addSpring(int masspoint1, int masspoint2, float initialLength);
 	int getNumberOfMassPoints();
@@ -54,5 +58,20 @@ private:
 	Point2D m_mouse;
 	Point2D m_trackmouse;
 	Point2D m_oldtrackmouse;
+
+	// test
+	vector<shared_ptr<MassPoint>> t_massPoints_;
+	vector<Spring> t_springs_;
+	
+	void testUpdate(float timeStep, int integrator);
+	void testEuler(float timeStep);
+	void testMidpoint(float timeStep);
+
+	// demos
+	Demo123 demo123_;
+	Demo4 demo4_;
+
+	int integrationMethod_;
+	bool gravity_;
 };
 #endif
